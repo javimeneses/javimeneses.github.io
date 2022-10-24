@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Clasificaciones Bajo Aragón</title>
+<style>
+</style>
+    </head>
+    <body>
+			<table id="cadeteFem"/>
+			<table id="seniorMasc"/>
+			<table id="seniorFem"/>
+			<table id="juniorFem"/>
+			<table id="cadeteMasc"/>
+			
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script>
+		$(document).ready(function() {
+
+		$.ajax({
+			beforeSend: function(request) {
+					request.setRequestHeader("Authorization", '6ee6ec0b-2242-4389-a232-0015daa8fd45');
+				},
+			dataType: "json",
+			url: 'https://api.swish.nbn23.com/standings?groupId=6347efee3959f55aadc96283',
+			success: function(data) {
+			drawRanking("Tercera aragonesa masculino","seniorMasc",data);
+			}
+		});
+
+		$.ajax({
+			beforeSend: function(request) {
+					request.setRequestHeader("Authorization", '6ee6ec0b-2242-4389-a232-0015daa8fd45');
+				},
+			dataType: "json",
+			url: 'https://api.swish.nbn23.com/standings?groupId=633c2084c2275e87b6177832',
+			success: function(data) {
+			drawRanking("Tercera aragonesa femenino","seniorFem",data);
+			}
+		});
+		
+		$.ajax({
+			beforeSend: function(request) {
+					request.setRequestHeader("Authorization", '6ee6ec0b-2242-4389-a232-0015daa8fd45');
+				},
+			dataType: "json",
+			url: 'https://api.swish.nbn23.com/standings?groupId=6349173e3959f55aad16bd3c',
+			success: function(data) {
+			drawRanking("Junior femenino","juniorFem",data);
+			}
+		});
+		
+		$.ajax({
+			beforeSend: function(request) {
+					request.setRequestHeader("Authorization", '6ee6ec0b-2242-4389-a232-0015daa8fd45');
+				},
+			dataType: "json",
+			url: 'https://api.swish.nbn23.com/standings?groupId=63510041be93e29018d325a9',
+			success: function(data) {
+			drawRanking("Cadete masculino","cadeteMasc",data);
+			}
+		});
+		
+		$.ajax({
+			beforeSend: function(request) {
+					request.setRequestHeader("Authorization", '6ee6ec0b-2242-4389-a232-0015daa8fd45');
+				},
+			dataType: "json",
+			url: 'https://api.swish.nbn23.com/standings?groupId=63511c61be93e29018d9ad56',
+			success: function(data) {
+			drawRanking("Cadete femenino","cadeteFem",data);
+			}
+		});
+
+		});
+
+		function drawRanking(title,divName,data) {
+			var divName= divName;
+			var printContents = "<tr><th>"+title+"</th><th></th><th></th><th>PJ</th><th>PG</th><th>PP</th><th>PPP</th><th>PCPP</th></tr>";
+			data.forEach(element => {
+				printContents+="<tr><th>"+element.position+"</th><th><img width=50 height=50 src="+element.logo+"></th><th>"+element.name+"</th><th>"+element.stats.playedMatches+"</th><th>"+element.stats.wonMatches+"</th><th>"+element.stats.lostMatches+"</th><th>"+element.stats.pointsPerGame+"</th><th>"+element.stats.opponentsPointsPerGame+"</th></tr>";
+			});
+			document.getElementById(divName).innerHTML= printContents;
+		}
+		</script>
+    </body>
+</html>
+</html>
